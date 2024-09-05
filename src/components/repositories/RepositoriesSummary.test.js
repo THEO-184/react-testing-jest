@@ -1,17 +1,19 @@
-import { screen, render } from '@testing-library/react';
-import RepositoriesSummary from './RepositoriesSummary';
+import { render, screen } from "@testing-library/react";
+import RepositoriesSummary from "./RepositoriesSummary";
 
-test('should display repository details', () => {
- const repository = {
-  language: 'javascript',
-  stargazers_count: 5,
-  forks: 30,
-  open_issuesL: 1,
- };
+describe("RepositoriesSummary", () => {
+	it("should display repository information", () => {
+		const repository = {
+			stargazers_count: 24,
+			open_issues: 5,
+			forks: 30,
+			language: "Javascript",
+		};
+		render(<RepositoriesSummary repository={repository} />);
 
- render(<RepositoriesSummary repository={repository} />);
- Object.keys(repository).forEach((key) => {
-  const element = screen.getByText(new RegExp(repository[key], 'i'));
-  expect(element).toBeInTheDocument();
- });
+		Object.keys(repository).forEach((key) => {
+			const value = repository[key];
+			expect(screen.getByText(new RegExp(value))).toBeInTheDocument();
+		});
+	});
 });
